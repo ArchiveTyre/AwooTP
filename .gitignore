@@ -1,3 +1,9 @@
+# VIM
+.*.swp
+
+# AwooTP stuff
+work
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
