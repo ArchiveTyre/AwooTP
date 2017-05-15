@@ -1,7 +1,4 @@
-:INCLUDE ~/AwooTP/html.awoodoc
-:INCLUDE ~/AwooTP/settings.awoodoc
-:
-:
+:#This is a comment
 :SET COMMA ,
 :SET SEP :JOIN COMMA SPACE
 :JOIN USERNAME SEP DATE

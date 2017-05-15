@@ -4,7 +4,6 @@ from sys import argv
 from time import strftime
 from os import path
 
-pc = []
 nl = None
 hl = None
 variables = {}
@@ -33,6 +32,8 @@ def make_env():
     global variables
     variables["DATE"] = strftime("%d-%b %Y")
     variables["SPACE"] = " "
+    variables["NEWLINE"] = "\n"
+    variables["COLON"] = ":"
 
 def eval_line(line):
     if line == "":
@@ -65,10 +66,14 @@ def process_command(full_command):
         variables[parts[1].upper()] =  eval_line(' '.join(parts[2:]))
         return None
     elif command == "INCLUDE":
-        hl = nl
-        process_file(path.expanduser(eval_line(args)))
-        hl = hl.next
+        no = nl
+        ho = hl
+        nl = None
+        hl = None
+        process_file(eval_line(args))
         print_file()
+        nl = no
+        hl = ho
         return None
     elif command == "JOIN":
         result = []
@@ -88,15 +93,19 @@ def process_line(line):
     nl = newl
 
 def process_file(file_name):
-    with open(file_name) as f:
+    with open(path.expanduser(file_name)) as f:
         for line in f:
             process_line(line.rstrip("\n"))
 
 def print_file():
     hl.print()
 
+
 if len(argv) > 1:
     make_env()
+
+    process_file("~/AwooTP/default.awoodoc")
+
     for f in argv[1:]:
         process_file(f)
         line+=1
